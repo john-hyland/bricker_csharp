@@ -7,6 +7,9 @@ using System.Drawing;
 
 namespace Bricker
 {
+    /// <summary>
+    /// Represents a live brick in motion, that hasn't yet come to rest and joined the static game matrix.
+    /// </summary>
     public class Brick
     {
         //private
@@ -167,14 +170,17 @@ namespace Bricker
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    int mX = x + _x;
-                    int mY = y + _y;
-                    if ((mX < 0) || (mX > 21))
-                        return true;
-                    if ((mY < 0) || (mY > 21))
-                        return true;
-                    if ((_grid[x, y] == 1) && (matrix[mX, mY] == 1))
-                        return true;
+                    if (_grid[x, y] == 1)
+                    {
+                        int mX = x + _x;
+                        int mY = y + _y;
+                        if ((mX < 0) || (mX > 21))
+                            return true;
+                        if ((mY < 0) || (mY > 21))
+                            return true;
+                        if (matrix[mX, mY] == 1)
+                            return true;
+                    }
                 }
             }
             return false;
@@ -215,6 +221,9 @@ namespace Bricker
             return false;
         }
 
+        /// <summary>
+        /// Rotates the brick 90* clockwise, moving slightly if there's a collision.
+        /// </summary>
         public void Rotate(int[,] matrix)
         {
             int[,] newGrid = new int[_height, _width];

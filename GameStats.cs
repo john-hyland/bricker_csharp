@@ -48,6 +48,13 @@ namespace Bricker
         }
 
 
+        public void IncrementLines(int count)
+        {
+            _lines += count;
+            _level = (_level / 20) + 1;
+        }
+
+
 
 
 
